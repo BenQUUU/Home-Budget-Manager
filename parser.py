@@ -8,7 +8,7 @@ class Parser:
 
         self.action_group = self.parser.add_mutually_exclusive_group(required=True)
         self.action_group.add_argument(
-            '--add expense',
+            '--add-expense',
             dest='action',
             action='store_const',
             const='add_expense',
@@ -16,7 +16,7 @@ class Parser:
         )
 
         self.action_group.add_argument(
-            '--add income',
+            '--add-income',
             dest='action',
             action='store_const',
             const='add_income',
@@ -52,6 +52,13 @@ class Parser:
             '--name',
             type=str,
             help='Name of the element',
+            required='--add-expense' in sys.argv or '--add-income' in sys.argv
+        )
+
+        self.add_group.add_argument(
+            '--category',
+            type=str,
+            help='Category name',
             required='--add-expense' in sys.argv or '--add-income' in sys.argv
         )
 

@@ -1,5 +1,6 @@
 import sqlite3
 from application import Application
+from repository import Repository
 
 
 def init_db(db_cursor):
@@ -7,6 +8,7 @@ def init_db(db_cursor):
             (id INTEGER PRIMARY KEY, name TEXT)''')
     db_cursor.execute('''CREATE TABLE IF NOT EXISTS items(
             id INTEGER PRIMARY KEY,
+            name TEXT,
             category_id INTEGER,
             amount REAL,
             date TEXT,
@@ -18,7 +20,8 @@ if __name__ == '__main__':
         cursor = database.cursor()
         init_db(cursor)
 
-        main = Application()
+        repository = Repository(database)
+        main = Application(repository)
         main.main()
 
 

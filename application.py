@@ -1,10 +1,12 @@
 from parser import Parser
+from repository import Repository
 
 
 class Application:
-    def __init__(self):
+    def __init__(self, repository: Repository):
         parser = Parser()
         self.arguments = parser.parse_args()
+        self.repository = repository
 
     def main(self):
         match self.arguments.action:
@@ -35,6 +37,8 @@ class Application:
 
     def add_income(self, name, category, date, value):
         print('Add income')
+        self.repository.add_item(name, category, date, value)
 
     def add_expense(self, name, category, date, value):
         print('Add expense')
+        self.repository.add_item(name, category, date, value * - 1)
