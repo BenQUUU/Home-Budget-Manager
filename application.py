@@ -28,12 +28,15 @@ class Application:
 
     def list(self):
         print('Expense list')
+        for item in self.repository.get_items():
+            print(item)
 
     def stats(self):
         print('Statistics')
 
-    def delete(self, id:int):
+    def delete(self, item_id: int):
         print('Delete')
+        self.repository.delete_item(item_id)
 
     def add_income(self, name, category, date, value):
         print('Add income')

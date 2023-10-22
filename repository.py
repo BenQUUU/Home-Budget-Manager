@@ -1,3 +1,6 @@
+import curses
+
+
 class Repository:
     def __init__(self, connection):
         self.connection = connection
@@ -9,7 +12,7 @@ class Repository:
         db_cursor.execute(sql, (name, category_id, value, date))
         self.connection.commit()
 
-    def get_or_create_category(self, name: str):
+    def get_or_create_category(self, name: str) -> int:
         db_cursor = self.connection.cursor()
         db_cursor.execute('SELECT id FROM categories WHERE name=?', (name,))
         result = db_cursor.fetchone()
@@ -21,3 +24,12 @@ class Repository:
             category_id = result[0]
 
         return category_id
+
+    def delete_item(self, item_id):
+        db_cursor = self.connection.cursor()
+        db_cursor.execute('DELETE FROM items WHERE id=?', (item_id,))
+        self.connection.commit()
+
+    def get_items(self) -> tuple:
+        db_cursor = self.connection.cursor()
+        return db_cursor.execute('SELECT * FROM items')
