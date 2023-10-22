@@ -33,3 +33,9 @@ class Repository:
     def get_items(self) -> tuple:
         db_cursor = self.connection.cursor()
         return db_cursor.execute('SELECT * FROM items')
+
+    def get_stats(self) -> tuple:
+        db_cursor = self.connection.cursor()
+        return db_cursor.execute('''SELECT strftime('%m', date) as month, SUM(amount) as total
+        FROM items
+        GROUP BY month, category''')

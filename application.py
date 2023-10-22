@@ -33,6 +33,8 @@ class Application:
 
     def stats(self):
         print('Statistics')
+        for item in self.repository.get_stats():
+            print(item)
 
     def delete(self, item_id: int):
         print('Delete')
