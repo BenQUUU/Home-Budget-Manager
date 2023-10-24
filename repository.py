@@ -1,6 +1,3 @@
-import curses
-
-
 class Repository:
     def __init__(self, connection):
         self.connection = connection
@@ -38,4 +35,4 @@ class Repository:
         db_cursor = self.connection.cursor()
         return db_cursor.execute('''SELECT strftime('%m', date) as month, SUM(amount) as total
         FROM items
-        GROUP BY month, category''')
+        GROUP BY month, category_id''')
